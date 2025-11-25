@@ -5,7 +5,7 @@ class Board:
     def __init__(self, size_x = 6, size_y = 6, mines=6):
         self.size_x = size_x
         self.size_y = size_y
-        self.grid = [[Cell() for _ in range(size_x)] for _ in range(size_y)]
+        self.grid = [[Cell() for _ in range(size_y)] for _ in range(size_x)]
         self.mines = mines
         self.visited_dp = set()    # DP: evita repetir expansión
         self.place_mines()
@@ -79,9 +79,9 @@ class Board:
     def print_board(self, show_mines=False):
         print("  y " + " ".join(str(i) for i in range(self.size_y)))
         print("x  " + "--" * self.size_x)
-        for i in range(self.size_y):
+        for i in range(self.size_x):
             row = []
-            for j in range(self.size_x):
+            for j in range(self.size_y):
                 c = self.grid[i][j]
                 if show_mines and c.is_mine:
                     row.append("*")
