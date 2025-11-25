@@ -79,12 +79,17 @@ class Board:
     def print_board(self, show_mines=False):
         print("  y " + " ".join(str(i) for i in range(self.size_y)))
         print("x  " + "--" * self.size_x)
+
+
         for i in range(self.size_x):
             row = []
+            space_x = ""
+            if i < 10:
+                space_x = " "       # No piesno generalizar esto
             for j in range(self.size_y):
                 c = self.grid[i][j]
                 if show_mines and c.is_mine:
                     row.append("*")
                 else:
                     row.append(str(c))
-            print(f"{i} | " + " ".join(row))
+            print(f"{i}" + space_x +  "| " + " ".join(row))

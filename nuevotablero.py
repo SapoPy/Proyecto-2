@@ -1,6 +1,6 @@
 from Cell import Cell
 from NewBoard import Board
-from Agent import RandomAgent
+
 class Game:
     def __init__(self, size_x = 6, size_y = 6, mines=6):
         self.board = Board(size_x, size_y, mines)
@@ -67,4 +67,4 @@ class Game:
 
 
 if __name__ == "__main__":
-    Game(7, 9, 7).play()# 3. Iniciar el juego
+    Game(11, 11, 10).play()# 3. Iniciar el juego
