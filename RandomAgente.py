@@ -1,5 +1,5 @@
 from Cell import Cell
-from NewBoard import Board
+from Board import Board
 import random
 import time
 
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         game = Board(6, 6, 4)
         agent = RandomAgent(game, 0.35)
 
-        result = agent.jugar(show=False)  # True si ganó, False si perdió
+        result = agent.jugar(show=False)  
         if result:
             wins += 1
 

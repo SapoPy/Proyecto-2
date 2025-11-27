@@ -1,5 +1,5 @@
 from Cell import Cell
-from NewBoard import Board
+from Board import Board
 
 class Game:
     def __init__(self, size_x = 6, size_y = 6, mines=6):
@@ -54,7 +54,7 @@ class Game:
 
 
             if self.check_win():
-                print("¡Ganaste! No quedan celdas seguras.")
+                print("¡Ganaste!")
                 self.board.print_board(show_mines=True)
                 break
 

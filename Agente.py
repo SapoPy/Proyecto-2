@@ -3,11 +3,7 @@ from nuevotablero import *
 import random
 from collections import defaultdict 
 
-# ============================================================
-#               ENTORNO BUSCAMINAS CON BANDERAS
-# ============================================================
-
-class MinesweeperEnv:
+class AgenteQ:
 
     #  hiperparametros de entrenamiento
     alpha = 0.7
@@ -240,7 +236,7 @@ if __name__ == "__main__":
     win_rates = []
 
     for _ in range(10):
-        env = MinesweeperEnv(size_x=5, size_y=5, mines=3)
+        env = AgenteQ(size_x=5, size_y=5, mines=3)
         train_q_learning(env, env.Q_table, print_each=25000)
         win_rates.append(test_agent(env, env.Q_table, n=10000, max_steps=20))
 
