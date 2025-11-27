@@ -10,9 +10,8 @@ class RandomAgent:
 
     def accion(self):
         """
-        Devuelve:
-            True  -> la partida continúa
-            False -> la partida termina (ganó o perdió)
+        Entrega una tupla con bool que indica si continua la partida (True), un str que indica la accion marcar/revelar, y la posicion de la 
+        celda a ejecutar la accion
         """
         # Coordenadas aleatorias válidas
         x = random.randint(0, self.board.size_x - 1)
@@ -28,7 +27,10 @@ class RandomAgent:
 
         return ok ,"revela", x, y
 
-    def jugar(self, show=False):
+    def jugar(self, show=False) -> bool:
+        """
+        Entrega el resultado de la partida jugado de manera aleatorea, True si gana
+        """
         while True:
             sigue, jugada, x, y = self.accion()
 
@@ -53,7 +55,10 @@ class RandomAgent:
                         self.board.print_board(show_mines=True)
                     return False
 
-    def check_win(self):
+    def check_win(self) -> bool:
+        """
+        Entrega True si el tablero actual cumple la condicion de victoria
+        """
         for row in self.board.grid:
             for cell in row:
                 if not cell.is_mine and not cell.is_revealed:

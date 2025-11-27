@@ -91,6 +91,9 @@ class Board:
                         self.flood_fill(nx, ny)  # expansión recursiva
 
     def print_board(self, show_mines=False) -> None:
+        """
+        Muestra en terminal el estado del tablero actual
+        """
         print("  y " + " ".join(str(i) for i in range(self.size_y)))
         print("x  " + "--" * self.size_x)
 

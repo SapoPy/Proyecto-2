@@ -5,9 +5,12 @@ class Game:
     def __init__(self, size_x = 6, size_y = 6, mines=6):
         self.board = Board(size_x, size_y, mines)
 
-    def play(self):
+    def play(self) -> None:
+        """
+        Juega una partida para un jugador humano
+        """
         while True:
-
+            
             print("Comandos:")
             print("   r x y   -> revelar")
             print("   m x y   -> marcar bandera")
@@ -55,7 +58,10 @@ class Game:
                 self.board.print_board(show_mines=True)
                 break
 
-    def check_win(self):
+    def check_win(self)-> bool:
+        """
+        Entrega True si el tablero actual cumple la condicion de victoria
+        """
         for row in self.board.grid:
             for cell in row:
                 if not cell.is_mine and not cell.is_revealed:
