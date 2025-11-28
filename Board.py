@@ -9,7 +9,7 @@ class Board:
         self.mines = mines
         self.visited_dp = set()    # esto es para evitar repetir expansión
         self.place_mines()          # pone las minas altiro
-        self.compute_adjacent_counts()  #
+        self.compute_adjacent_counts()  
 
     def valid(self, x: int, y: int) -> bool:
         """

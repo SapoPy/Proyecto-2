@@ -6,7 +6,7 @@ import time
 class RandomAgent:
     def __init__(self, board: Board, p: float):
         self.board = board
-        self.prob = p   # Probabilidad de marcar
+        self.prob = p   # probabilidad de marcar
 
     def accion(self):
         """
@@ -71,7 +71,7 @@ if __name__ == "__main__":
     #agente = RandomAgent(Board(3, 3, 3), 0.2)
     #agente.jugar(show=True)
     #gana = False
-    total = 10000
+    total = 100000
     wins = 0
 
     for i in range(total):

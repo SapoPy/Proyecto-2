@@ -17,7 +17,7 @@ class AgenteQ:
     EPISODES = 20000
     MAX_STEPS = 20
 
-    def __init__(self, size_x=6, size_y=6, mines=6):
+    def __init__(self, size_x: int =6 , size_y: int=6, mines: int = 6 ):
         self.size_x = size_x
         self.size_y = size_y
         self.mines = mines
@@ -40,12 +40,12 @@ class AgenteQ:
 
         self.reset()
 
-    def reset(self):
+    def reset(self) -> tuple:
         self.game = Game(self.size_x, self.size_y, self.mines)
         self.board = self.game.board
         return self.get_state()
 
-    def get_state(self):
+    def get_state(self) -> tuple:
         state = []
         for i in range(self.size_x):
             row = []
@@ -62,7 +62,7 @@ class AgenteQ:
             state.append(tuple(row))
         return tuple(state)
 
-    def step(self, action):
+    def step(self, action: tuple) -> tuple:
         tipo, x, y = action
 
         # Acción bandera
@@ -105,7 +105,10 @@ class AgenteQ:
         raise ValueError("Acción desconocida:", action)
 
 
-def all_actions(env):
+def all_actions(env: AgenteQ) -> list:
+    """
+    Entraga una lista de todas las acciones posibles de un tablero que puede tomar un agente
+    """
     acciones = []
     for x in range(env.size_x):
         for y in range(env.size_y):
@@ -114,7 +117,10 @@ def all_actions(env):
     return acciones
 
 
-def choose_action(state, env, epsilon, Q):
+def choose_action(state, env: AgenteQ, epsilon: float, Q: dict) -> tuple:
+    """
+    Elige que accion tomar de una tabla del AgenteQ
+    """
     acciones = all_actions(env)
 
     if random.random() < epsilon:
@@ -132,7 +138,10 @@ def choose_action(state, env, epsilon, Q):
     return best_a
 
 
-def update_q(state, action, reward, next_state, env, Q):
+def update_q(state: list, action: tuple, reward: float, next_state: list, env: AgenteQ, Q: dict) -> None:
+    """
+    Actualiza la tabla de un AgenteQ
+    """
     best_next_q = max(Q[(next_state, a)] for a in all_actions(env))
 
     Q[(state, action)] += env.alpha * (
@@ -140,8 +149,10 @@ def update_q(state, action, reward, next_state, env, Q):
     )
 
 
-def train_q_learning(env, Q, print_each=1000):
-
+def train_q_learning(env: AgenteQ, Q: dict, print_each: int =1000) -> None:
+    """
+    Entrena a un AgenteQ
+    """
     for episode in range(env.EPISODES):
 
         # Epsilon decay
@@ -167,7 +178,10 @@ def train_q_learning(env, Q, print_each=1000):
     print("Entrenamiento finalizado.")
 
 
-def watch_agent(env, Q, max_steps=15):
+def watch_agent(env: AgenteQ, Q: dict, max_steps: int=15) -> None:
+    """
+    Muestra en terminal las jugadas de un AgenteQ
+    """
     state = env.reset()
     done = False
     steps = 0
@@ -200,7 +214,10 @@ def watch_agent(env, Q, max_steps=15):
     env.board.print_board(show_mines=True)
 
 
-def test_agent(env, Q, n=100, max_steps=8):
+def test_agent(env: AgenteQ, Q: dict, n: int =100, max_steps: int=8) -> float:
+    """
+    Entraga el porcentaje de victoria de un AgenteQ
+    """
     wins = 0
 
     for _ in range(n):
@@ -236,7 +253,7 @@ if __name__ == "__main__":
     win_rates = []
 
     for _ in range(10):
-        env = AgenteQ(size_x=5, size_y=5, mines=3)
+        env = AgenteQ(size_x=4, size_y=4, mines=2)
         train_q_learning(env, env.Q_table, print_each=25000)
         win_rates.append(test_agent(env, env.Q_table, n=10000, max_steps=20))
 
@@ -247,4 +264,3 @@ if __name__ == "__main__":
         f"Parámetros: alpha={env.alpha}, gamma={env.gamma}, "
         f"eps=[{env.max_epsilon}, {env.min_epsilon}, decay={env.epsilon_decay_rate}]"
     )
-    
